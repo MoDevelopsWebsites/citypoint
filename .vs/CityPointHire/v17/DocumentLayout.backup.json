@@ -62,8 +62,7 @@
               "RelativeToolTip": "CityPointHire\\Views\\Shared\\_Layout.cshtml",
               "ViewState": "AgIAABsAAAAAAAAAAAAgwD0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-02-02T10:33:00.786Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-02T10:33:00.786Z"
             },
             {
               "$type": "Document",
@@ -75,8 +74,7 @@
               "RelativeToolTip": "CityPointHire\\wwwroot\\js\\site.js",
               "ViewState": "AgIAAEwAAAAAAAAAAAAUwGUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2026-02-02T10:32:44.945Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-02T10:32:44.945Z"
             },
             {
               "$type": "Document",
@@ -88,8 +86,7 @@
               "RelativeToolTip": "CityPointHire\\wwwroot\\css\\site.css",
               "ViewState": "AgIAABwDAAAAAAAAAAAUwD8DAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2026-02-02T10:31:14.178Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-02T10:31:14.178Z"
             },
             {
               "$type": "Document",
@@ -101,8 +98,7 @@
               "RelativeToolTip": "CityPointHire\\Controllers\\StaffsController.cs",
               "ViewState": "AgIAAJQAAAAAAAAAAAAYwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-02T10:24:02.137Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-02T10:24:02.137Z"
             },
             {
               "$type": "Document",
@@ -114,8 +110,7 @@
               "RelativeToolTip": "CityPointHire\\Controllers\\RoomsController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-02T10:24:01.597Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-02T10:24:01.597Z"
             },
             {
               "$type": "Document",
@@ -127,8 +122,7 @@
               "RelativeToolTip": "CityPointHire\\Controllers\\BookingsController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-02T10:23:59.823Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-02T10:23:59.823Z"
             },
             {
               "$type": "Document",
@@ -140,8 +134,7 @@
               "RelativeToolTip": "CityPointHire\\Controllers\\EquipmentsController.cs",
               "ViewState": "AgIAABgAAAAAAAAAAAA5wAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-02T10:23:50.581Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-02T10:23:50.581Z"
             },
             {
               "$type": "Document",
@@ -153,8 +146,7 @@
               "RelativeToolTip": "CityPointHire\\Controllers\\HomeController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-02T10:23:45.82Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-02T10:23:45.82Z"
             }
           ]
         }
