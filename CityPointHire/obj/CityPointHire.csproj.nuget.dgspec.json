@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\706695\\source\\repos\\CityPointHire\\CityPointHire\\CityPointHire.csproj": {}
+    "\\\\dom.sandwell.ac.uk\\Student\\HomeOdd\\706695\\GitHub\\citypoint\\CityPointHire\\CityPointHire.csproj": {}
   },
   "projects": {
-    "C:\\Users\\706695\\source\\repos\\CityPointHire\\CityPointHire\\CityPointHire.csproj": {
+    "\\\\dom.sandwell.ac.uk\\Student\\HomeOdd\\706695\\GitHub\\citypoint\\CityPointHire\\CityPointHire.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\706695\\source\\repos\\CityPointHire\\CityPointHire\\CityPointHire.csproj",
+        "projectUniqueName": "\\\\dom.sandwell.ac.uk\\Student\\HomeOdd\\706695\\GitHub\\citypoint\\CityPointHire\\CityPointHire.csproj",
         "projectName": "CityPointHire",
-        "projectPath": "C:\\Users\\706695\\source\\repos\\CityPointHire\\CityPointHire\\CityPointHire.csproj",
+        "projectPath": "\\\\dom.sandwell.ac.uk\\Student\\HomeOdd\\706695\\GitHub\\citypoint\\CityPointHire\\CityPointHire.csproj",
         "packagesPath": "C:\\Users\\706695\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\706695\\source\\repos\\CityPointHire\\CityPointHire\\obj\\",
+        "outputPath": "\\\\dom.sandwell.ac.uk\\Student\\HomeOdd\\706695\\GitHub\\citypoint\\CityPointHire\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
