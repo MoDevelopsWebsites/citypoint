@@ -1,0 +1,57 @@
+﻿@model CityPointHire.Models.Booking
+
+@{
+    ViewData["Title"] = "Create Booking";
+}
+
+<h1>Create Booking</h1>
+
+<h4>Booking Details</h4>
+<hr />
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" method="post">
+            <!-- Validation summary -->
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+            <!-- Room selection -->
+            <div class="form-group">
+                <label asp-for="RoomID" class="control-label"></label>
+                <select asp-for="RoomID" class="form-control" asp-items="@(ViewData["RoomID"] as SelectList)">
+                    <option value="">-- Select a Room --</option>
+                </select>
+                <span asp-validation-for="RoomID" class="text-danger"></span>
+            </div>
+
+            <!-- Booking date -->
+            <div class="form-group">
+                <label asp-for="Date" class="control-label"></label>
+                <input asp-for="Date" type="date" class="form-control" />
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+
+            <!-- Booking time -->
+            <div class="form-group">
+                <label asp-for="Time" class="control-label"></label>
+                <input asp-for="Time" type="time" class="form-control" />
+                <span asp-validation-for="Time" class="text-danger"></span>
+            </div>
+
+            <!-- Submit button -->
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Book</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
