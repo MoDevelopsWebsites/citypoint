@@ -1,8 +1,279 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<!-- Hero Section -->
+<section class="hero" id="home">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <div class="hero-badge">
+            <span class="badge-dot"></span>
+            <span>Spaces available today</span>
+        </div>
+        <h1 class="hero-title">
+            Premium Spaces<br>
+            <span class="hero-title-light">For Every Occasion</span>
+        </h1>
+        <p class="hero-subtitle">
+            Modern meeting rooms, training spaces, and event venues equipped
+            with everything you need. From quick meetings to full-day bookings.
+        </p>
+        <div class="hero-buttons">
+            <a asp-controller="Rooms" asp-action="Index" class="btn-hero">Explore Rooms →</a>
+            <a asp-controller="Bookings" asp-action="Index" class="btn-hero-outline">▶ Book Now</a>
+        </div>
+        <div class="hero-stats">
+            <div class="stat">
+                <span class="stat-number">15+</span>
+                <span class="stat-label">Unique Spaces</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number">500+</span>
+                <span class="stat-label">Happy Clients</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number">24/7</span>
+                <span class="stat-label">Availability</span>
+            </div>
+        </div>
+    </div>
+    <div class="scroll-indicator">
+        <div class="scroll-mouse">
+            <div class="scroll-wheel"></div>
+        </div>
+    </div>
+</section>
+
+<!-- Services Section -->
+<section class="services" id="services">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-tag">What We Offer</span>
+            <h2 class="section-title">Everything You Need<br><span class="title-light">Under One Roof</span></h2>
+        </div>
+        <div class="services-grid">
+            <a asp-controller="Rooms" asp-action="Index" class="service-card">
+                <div class="service-icon">🏢</div>
+                <h3>Meeting Rooms</h3>
+                <p>Professional spaces for client meetings, interviews, and small team gatherings.</p>
+            </a>
+            <a asp-controller="Rooms" asp-action="Index" class="service-card">
+                <div class="service-icon">📚</div>
+                <h3>Training Spaces</h3>
+                <p>Fully equipped rooms for workshops, seminars, and educational sessions.</p>
+            </a>
+            <a asp-controller="Bookings" asp-action="Index" class="service-card">
+                <div class="service-icon">🎉</div>
+                <h3>Event Venues</h3>
+                <p>Elegant spaces for celebrations, corporate events, and community gatherings.</p>
+            </a>
+            <a asp-controller="Equipment" asp-action="Index" class="service-card">
+                <div class="service-icon">🎛️</div>
+                <h3>Equipment Hire</h3>
+                <p>Projectors, sound systems, furniture, and technical equipment available.</p>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Rooms Preview Section -->
+<section class="rooms-section" id="rooms-preview">
+    <div class="container">
+        <div class="section-header-flex">
+            <div>
+                <span class="section-tag">Our Spaces</span>
+                <h2 class="section-title">Rooms That Inspire<br><span class="title-light">Productivity</span></h2>
+            </div>
+            <a asp-controller="Rooms" asp-action="Index" class="btn-outline-dark">View All Rooms ↗</a>
+        </div>
+        <div class="rooms-grid">
+            <div class="room-card">
+                <div class="room-image">
+                    <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=800" alt="Executive Boardroom">
+                </div>
+                <div class="room-content">
+                    <div class="room-capacity">👥 6-8 people</div>
+                    <h3>Executive Boardroom</h3>
+                    <p>Intimate space perfect for board meetings and client presentations</p>
+                    <div class="room-features">
+                        <span class="feature-tag">4K Display</span>
+                        <span class="feature-tag">Video Conferencing</span>
+                        <span class="feature-tag">Whiteboard</span>
+                    </div>
+                </div>
+            </div>
+            <div class="room-card">
+                <div class="room-image">
+                    <img src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=800" alt="Training Suite">
+                </div>
+                <div class="room-content">
+                    <div class="room-capacity">👥 20-40 people</div>
+                    <h3>Training Suite</h3>
+                    <p>Spacious layout designed for workshops and educational sessions</p>
+                    <div class="room-features">
+                        <span class="feature-tag">Projector</span>
+                        <span class="feature-tag">Sound System</span>
+                        <span class="feature-tag">Breakout Areas</span>
+                    </div>
+                </div>
+            </div>
+            <div class="room-card">
+                <div class="room-image">
+                    <img src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=800" alt="Grand Event Hall">
+                </div>
+                <div class="room-content">
+                    <div class="room-capacity">👥 50-100 people</div>
+                    <h3>Grand Event Hall</h3>
+                    <p>Elegant venue for corporate events, celebrations, and galas</p>
+                    <div class="room-features">
+                        <span class="feature-tag">Stage</span>
+                        <span class="feature-tag">Catering Ready</span>
+                        <span class="feature-tag">Ambient Lighting</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Equipment Preview Section -->
+<section class="equipment-section" id="equipment-preview">
+    <div class="container">
+        <div class="section-header center">
+            <span class="section-tag light">Equipment Hire</span>
+            <h2 class="section-title light">Professional Equipment<br><span class="title-light">At Your Fingertips</span></h2>
+            <p class="section-subtitle">Enhance your booking with our premium equipment selection.</p>
+        </div>
+        <div class="equipment-grid">
+            <div class="equipment-card">
+                <div class="equipment-icon">🖥️</div>
+                <div class="equipment-content">
+                    <h3>Projectors & Displays</h3>
+                    <p>4K projectors, large LED screens, and presentation equipment</p>
+                    <div class="equipment-features">
+                        <span>✓ 4K Resolution</span>
+                        <span>✓ HDMI/Wireless</span>
+                        <span>✓ Multiple Sizes</span>
+                    </div>
+                </div>
+            </div>
+            <div class="equipment-card">
+                <div class="equipment-icon">🔊</div>
+                <div class="equipment-content">
+                    <h3>Audio Systems</h3>
+                    <p>Professional sound systems for presentations and events</p>
+                    <div class="equipment-features">
+                        <span>✓ PA Systems</span>
+                        <span>✓ Wireless Mics</span>
+                        <span>✓ Bluetooth Ready</span>
+                    </div>
+                </div>
+            </div>
+            <div class="equipment-card">
+                <div class="equipment-icon">🎤</div>
+                <div class="equipment-content">
+                    <h3>Conference Tech</h3>
+                    <p>Video conferencing and communication equipment</p>
+                    <div class="equipment-features">
+                        <span>✓ Webcams</span>
+                        <span>✓ Speakerphones</span>
+                        <span>✓ Zoom Ready</span>
+                    </div>
+                </div>
+            </div>
+            <div class="equipment-card">
+                <div class="equipment-icon">🪑</div>
+                <div class="equipment-content">
+                    <h3>Furniture & Seating</h3>
+                    <p>Flexible seating arrangements for any event configuration</p>
+                    <div class="equipment-features">
+                        <span>✓ Stackable Chairs</span>
+                        <span>✓ Tables</span>
+                        <span>✓ Podiums</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="center">
+            <a asp-controller="Equipment" asp-action="Index" class="btn-light">View All Equipment</a>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section class="booking-section" id="contact">
+    <div class="container">
+        <div class="booking-grid">
+            <div class="booking-info">
+                <span class="section-tag">Get Started</span>
+                <h2 class="section-title">Ready to Book<br><span class="title-light">Your Space?</span></h2>
+                <p class="booking-desc">Whether you need a quick meeting room or a full-day event venue, we're here to help make your booking seamless.</p>
+                <div class="contact-list">
+                    <div class="contact-item">
+                        <span class="contact-icon">📍</span>
+                        <div>
+                            <strong>Visit Us</strong>
+                            <p>123 City Point Street<br>Downtown, CA 90210</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">📞</span>
+                        <div>
+                            <strong>Call Us</strong>
+                            <p>+1 (234) 567-890</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">✉️</span>
+                        <div>
+                            <strong>Email Us</strong>
+                            <p>info@citypointhire.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">🕐</span>
+                        <div>
+                            <strong>Opening Hours</strong>
+                            <p>Mon - Fri: 8am - 8pm<br>Sat - Sun: 9am - 5pm</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="cta-buttons">
+                    <a asp-controller="Bookings" asp-action="Index" class="btn-dark">Make a Booking →</a>
+                </div>
+            </div>
+            <div class="booking-form-container">
+                <form class="booking-form" id="enquiryForm" method="post" asp-controller="Home" asp-action="Contact">
+                    <h3>Send an Enquiry</h3>
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" placeholder="John Doe" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" placeholder="john@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" placeholder="+1 (234) 567-890">
+                    </div>
+                    <div class="form-group">
+                        <label for="service">Service Type</label>
+                        <select id="service" name="service" required>
+                            <option value="">Select a service...</option>
+                            <option value="meeting">Meeting Room</option>
+                            <option value="training">Training Space</option>
+                            <option value="event">Event Venue</option>
+                            <option value="equipment">Equipment Hire</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Your Message</label>
+                        <textarea id="message" name="message" rows="4" placeholder="Tell us about your requirements..."></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit">Submit Enquiry</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
