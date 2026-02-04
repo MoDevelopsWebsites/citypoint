@@ -16,13 +16,13 @@
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\site.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
       <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-KQvr2SR6H1DfEJQk2Db8zBN\u002BUBEiBh1BFwPX3Jf\u002BMtw="}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"17447"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022KQvr2SR6H1DfEJQk2Db8zBN\u002BUBEiBh1BFwPX3Jf\u002BMtw=\u0022"},{"Name":"Last-Modified","Value":"Wed, 04 Feb 2026 13:33:35 GMT"}]]]></ResponseHeaders>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"17447"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022KQvr2SR6H1DfEJQk2Db8zBN\u002BUBEiBh1BFwPX3Jf\u002BMtw=\u0022"},{"Name":"Last-Modified","Value":"Wed, 04 Feb 2026 16:08:31 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/CityPointHire/css/site.vinvwb8j2r.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\site.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
       <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"vinvwb8j2r"},{"Name":"integrity","Value":"sha256-KQvr2SR6H1DfEJQk2Db8zBN\u002BUBEiBh1BFwPX3Jf\u002BMtw="},{"Name":"label","Value":"_content/CityPointHire/css/site.css"}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"17447"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022KQvr2SR6H1DfEJQk2Db8zBN\u002BUBEiBh1BFwPX3Jf\u002BMtw=\u0022"},{"Name":"Last-Modified","Value":"Wed, 04 Feb 2026 13:33:35 GMT"}]]]></ResponseHeaders>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"17447"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022KQvr2SR6H1DfEJQk2Db8zBN\u002BUBEiBh1BFwPX3Jf\u002BMtw=\u0022"},{"Name":"Last-Modified","Value":"Wed, 04 Feb 2026 16:08:31 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/CityPointHire/favicon.61n19gt1b8.ico">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\favicon.ico'))</AssetFile>

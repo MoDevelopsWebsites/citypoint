@@ -11,7 +11,7 @@ using CityPointHire.Models;
 
 namespace CityPointHire.Controllers
 {
-    [Authorize] // All actions require login
+    [Authorize]
     public class BookingsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -21,27 +21,32 @@ namespace CityPointHire.Controllers
             _context = context;
         }
 
-        // GET: Bookings
+        // =======================
+        // INDEX
+        // =======================
         public async Task<IActionResult> Index()
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
             if (User.IsInRole("Staff"))
             {
-                // Staff can see all bookings
-                var allBookings = _context.Bookings.Include(b => b.Room).Include(b => b.User);
-                return View(await allBookings.ToListAsync());
-            }
-            else
-            {
-                // Normal users see only their own bookings
-                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                var bookings = _context.Bookings
+                return View(await _context.Bookings
                     .Include(b => b.Room)
-                    .Where(b => b.UserID == userId);
-                return View(await bookings.ToListAsync());
+                    .Include(b => b.User)
+                    .OrderByDescending(b => b.Date)
+                    .ToListAsync());
             }
+
+            return View(await _context.Bookings
+                .Include(b => b.Room)
+                .Where(b => b.UserID == userId)
+                .OrderByDescending(b => b.Date)
+                .ToListAsync());
         }
 
-        // GET: Bookings/Details/5
+        // =======================
+        // DETAILS
+        // =======================
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null) return NotFound();
@@ -53,7 +58,6 @@ namespace CityPointHire.Controllers
 
             if (booking == null) return NotFound();
 
-            // Only owner or staff can view
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (!User.IsInRole("Staff") && booking.UserID != userId)
                 return Forbid();
@@ -61,24 +65,44 @@ namespace CityPointHire.Controllers
             return View(booking);
         }
 
-        // GET: Bookings/Create
+        // =======================
+        // CREATE (GET)
+        // =======================
         public IActionResult Create()
         {
             ViewData["RoomID"] = new SelectList(_context.Rooms, "RoomID", "RoomName");
             return View();
         }
 
-        // POST: Bookings/Create
+        // =======================
+        // CREATE (POST)
+        // =======================
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("RoomID,Date,Time")] Booking booking)
         {
-            // Assign server-side fields
             booking.UserID = User.FindFirstValue(ClaimTypes.NameIdentifier);
             booking.Status = "Pending";
 
-            if (booking.RoomID == 0)
-                ModelState.AddModelError("RoomID", "You must select a room.");
+            // ❌ Cannot book in the past
+            var selectedDateTime = booking.Date.Date
+                .Add(TimeSpan.Parse(booking.Time));
+
+            if (selectedDateTime < DateTime.Now)
+            {
+                ModelState.AddModelError("", "You cannot book a room in the past.");
+            }
+
+            // ❌ Prevent duplicate bookings
+            bool duplicateExists = await _context.Bookings.AnyAsync(b =>
+                b.RoomID == booking.RoomID &&
+                b.Date == booking.Date &&
+                b.Time == booking.Time);
+
+            if (duplicateExists)
+            {
+                ModelState.AddModelError("", "This room is already booked for the selected date and time.");
+            }
 
             if (ModelState.IsValid)
             {
@@ -91,7 +115,9 @@ namespace CityPointHire.Controllers
             return View(booking);
         }
 
-        // GET: Bookings/Edit/5
+        // =======================
+        // EDIT (GET)
+        // =======================
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null) return NotFound();
@@ -107,7 +133,9 @@ namespace CityPointHire.Controllers
             return View(booking);
         }
 
-        // POST: Bookings/Edit/5
+        // =======================
+        // EDIT (POST)
+        // =======================
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("BookingID,RoomID,Date,Time")] Booking booking)
@@ -123,9 +151,29 @@ namespace CityPointHire.Controllers
             if (!User.IsInRole("Staff") && existingBooking.UserID != userId)
                 return Forbid();
 
-            // Preserve server-assigned fields
             booking.UserID = existingBooking.UserID;
             booking.Status = existingBooking.Status;
+
+            // ❌ Cannot edit into the past
+            var selectedDateTime = booking.Date.Date
+                .Add(TimeSpan.Parse(booking.Time));
+
+            if (selectedDateTime < DateTime.Now)
+            {
+                ModelState.AddModelError("", "You cannot book a room in the past.");
+            }
+
+            // ❌ Prevent duplicate bookings (excluding self)
+            bool duplicateExists = await _context.Bookings.AnyAsync(b =>
+                b.BookingID != booking.BookingID &&
+                b.RoomID == booking.RoomID &&
+                b.Date == booking.Date &&
+                b.Time == booking.Time);
+
+            if (duplicateExists)
+            {
+                ModelState.AddModelError("", "This room is already booked for the selected date and time.");
+            }
 
             if (ModelState.IsValid)
             {
@@ -138,8 +186,9 @@ namespace CityPointHire.Controllers
             return View(booking);
         }
 
-        // DELETE: USERS CANNOT DELETE BOOKINGS
-        // Only Staff can delete
+        // =======================
+        // DELETE (STAFF ONLY)
+        // =======================
         [Authorize(Roles = "Staff")]
         public async Task<IActionResult> Delete(int? id)
         {
@@ -169,7 +218,9 @@ namespace CityPointHire.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // STAFF ONLY: Approve Booking
+        // =======================
+        // STAFF ACTIONS
+        // =======================
         [Authorize(Roles = "Staff")]
         public async Task<IActionResult> Approve(int id)
         {
@@ -182,7 +233,6 @@ namespace CityPointHire.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // STAFF ONLY: Deny Booking
         [Authorize(Roles = "Staff")]
         public async Task<IActionResult> Deny(int id)
         {
@@ -193,11 +243,6 @@ namespace CityPointHire.Controllers
             _context.Update(booking);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool BookingExists(int id)
-        {
-            return _context.Bookings.Any(e => e.BookingID == id);
         }
     }
 }
