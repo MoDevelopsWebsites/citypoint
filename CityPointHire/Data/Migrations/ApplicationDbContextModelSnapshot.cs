@@ -17,7 +17,7 @@ namespace CityPointHire.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.0")
+                .HasAnnotation("ProductVersion", "9.0.12")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -37,7 +37,6 @@ namespace CityPointHire.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Status")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Time")
@@ -45,7 +44,6 @@ namespace CityPointHire.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserID")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("BookingID");
@@ -102,6 +100,32 @@ namespace CityPointHire.Data.Migrations
                     b.HasKey("RoomID");
 
                     b.ToTable("Rooms");
+
+                    b.HasData(
+                        new
+                        {
+                            RoomID = 1,
+                            Capacity = 8,
+                            Facilities = "4K Display, Video Conferencing, Whiteboard",
+                            Price = 45.00m,
+                            RoomName = "Executive Boardroom"
+                        },
+                        new
+                        {
+                            RoomID = 2,
+                            Capacity = 40,
+                            Facilities = "Projector, Sound System, Breakout Area",
+                            Price = 65.00m,
+                            RoomName = "Training Suite"
+                        },
+                        new
+                        {
+                            RoomID = 3,
+                            Capacity = 100,
+                            Facilities = "Stage, Ambient Lighting, Catering Ready",
+                            Price = 120.00m,
+                            RoomName = "Grand Event Hall"
+                        });
                 });
 
             modelBuilder.Entity("CityPointHire.Models.Staff", b =>
@@ -339,9 +363,7 @@ namespace CityPointHire.Data.Migrations
 
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
                         .WithMany()
-                        .HasForeignKey("UserID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserID");
 
                     b.Navigation("Room");
 

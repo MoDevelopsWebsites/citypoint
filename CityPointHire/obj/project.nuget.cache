@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "SLdpA9CGNko=",
+  "dgSpecHash": "vWm2CjmpYSw=",
   "success": true,
-  "projectFilePath": "\\\\dom.sandwell.ac.uk\\Student\\HomeOdd\\706695\\GitHub\\citypoint\\CityPointHire\\CityPointHire.csproj",
+  "projectFilePath": "\\\\dom.sandwell.ac.uk\\Student\\HomeOdd\\706695\\GitHub\\PetPals\\citypoint\\CityPointHire\\CityPointHire.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\706695\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\706695\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",
