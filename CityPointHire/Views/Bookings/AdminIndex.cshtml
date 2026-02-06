@@ -1,0 +1,209 @@
+﻿@model IEnumerable<CityPointHire.Models.Booking>
+
+@{
+    ViewData["Title"] = "Bookings";
+}
+
+<style>
+    .bookings-hero {
+        background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%);
+        color: white;
+        padding: 3rem 0;
+        margin-bottom: 2rem;
+        border-radius: 0 0 2rem 2rem;
+    }
+
+    .booking-card {
+        border-radius: 1rem;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        border: 1px solid #e9ecef;
+        overflow: hidden;
+    }
+
+        .booking-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .booking-card .card-header {
+            background: linear-gradient(135deg, #2d5a87 0%, #1e3a5f 100%);
+            color: white;
+            padding: 1.25rem;
+            border: none;
+        }
+
+        .booking-card .card-body {
+            padding: 1.5rem;
+        }
+
+    .booking-detail {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.6rem 0;
+        border-bottom: 1px solid #f1f3f4;
+    }
+
+        .booking-detail:last-of-type {
+            border-bottom: none;
+        }
+
+    .booking-detail-label {
+        color: #6c757d;
+        font-weight: 500;
+        font-size: 0.875rem;
+    }
+
+    .booking-detail-value {
+        font-weight: 600;
+        color: #1e3a5f;
+    }
+
+    .status-badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.35rem 0.75rem;
+        border-radius: 2rem;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .status-pending {
+        background-color: #fff3cd;
+        color: #856404;
+    }
+
+    .status-approved {
+        background-color: #d4edda;
+        color: #155724;
+    }
+
+    .status-rejected {
+        background-color: #f8d7da;
+        color: #721c24;
+    }
+
+    .price-tag {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #2d5a87;
+    }
+
+    .action-section {
+        background: #f8f9fa;
+        padding: 1rem 1.5rem;
+        margin: 0 -1.5rem -1.5rem -1.5rem;
+        border-top: 1px solid #e9ecef;
+    }
+
+    .btn-save {
+        background: linear-gradient(135deg, #2d5a87 0%, #1e3a5f 100%);
+        border: none;
+        padding: 0.5rem 1.5rem;
+        font-weight: 600;
+        border-radius: 0.5rem;
+        transition: opacity 0.2s ease;
+    }
+
+        .btn-save:hover {
+            opacity: 0.9;
+        }
+
+    .form-select-custom {
+        border-radius: 0.5rem;
+        border: 2px solid #e9ecef;
+        padding: 0.5rem 1rem;
+        font-weight: 500;
+    }
+
+        .form-select-custom:focus {
+            border-color: #2d5a87;
+            box-shadow: 0 0 0 3px rgba(45, 90, 135, 0.1);
+        }
+
+    .empty-state {
+        text-align: center;
+        padding: 4rem 2rem;
+        color: #6c757d;
+    }
+
+    .empty-state-icon {
+        font-size: 4rem;
+        margin-bottom: 1rem;
+        opacity: 0.5;
+    }
+</style>
+
+<div class="bookings-hero">
+    <div class="container text-center">
+        <h1 class="display-5 fw-bold mb-3">Your Bookings</h1>
+        <p class="fs-5 opacity-75 mb-0">Manage and track all your room reservations in one place.</p>
+    </div>
+</div>
+
+<div class="container pb-5">
+    @if (Model.Any())
+    {
+        <div class="row g-4">
+            @foreach (var booking in Model)
+            {
+                <div class="col-sm-6 col-lg-4">
+                    <div class="card booking-card h-100">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0 fw-bold">@(booking.Room?.RoomName ?? "Unknown Room")</h5>
+                            <span class="status-badge @(booking.Status == "Approved" ? "status-approved" : booking.Status == "Rejected" ? "status-rejected" : "status-pending")">
+                                @(booking.Status ?? "Pending")
+                            </span>
+                        </div>
+                        <div class="card-body d-flex flex-column">
+                            <div class="booking-detail">
+                                <span class="booking-detail-label">📅 Date</span>
+                                <span class="booking-detail-value">@booking.Date.ToString("dd MMM yyyy")</span>
+                            </div>
+                            <div class="booking-detail">
+                                <span class="booking-detail-label">🕐 Time</span>
+                                <span class="booking-detail-value">@booking.Time</span>
+                            </div>
+                            <div class="booking-detail">
+                                <span class="booking-detail-label">👥 Capacity</span>
+                                <span class="booking-detail-value">@(booking.Room?.Capacity ?? 0) people</span>
+                            </div>
+                            <div class="booking-detail">
+                                <span class="booking-detail-label">🛠️ Facilities</span>
+                                <span class="booking-detail-value">@(booking.Room?.Facilities ?? "N/A")</span>
+                            </div>
+                            <div class="booking-detail">
+                                <span class="booking-detail-label">💰 Price</span>
+                                <span class="price-tag">$@booking.Room?.Price.ToString("0.00")</span>
+                            </div>
+
+                            <div class="action-section mt-auto">
+                                <form asp-action="UpdateStatus" method="post">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="bookingId" value="@booking.BookingID" />
+                                    <div class="d-flex gap-2 align-items-center">
+                                        <select name="status" class="form-select form-select-custom flex-grow-1">
+                                            <option value="Pending" selected="@(booking.Status == "Pending")">Pending</option>
+                                            <option value="Approved" selected="@(booking.Status == "Approved")">Approved</option>
+                                            <option value="Rejected" selected="@(booking.Status == "Rejected")">Rejected</option>
+                                        </select>
+                                        <button type="submit" class="btn btn-primary btn-save">Update</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="empty-state">
+            <div class="empty-state-icon">📭</div>
+            <h4>No Bookings Yet</h4>
+            <p>You haven't made any room bookings. Start exploring available rooms!</p>
+        </div>
+    }
+</div>

@@ -1,0 +1,47 @@
+﻿@model IEnumerable<CityPointHire.Models.Booking>
+
+@{
+    ViewData["Title"] = "Admin – Manage Bookings";
+}
+
+<h1>Admin – Manage Bookings</h1>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Room</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Status</th>
+            <th>Update</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var booking in Model)
+        {
+            <tr>
+                <td>@booking.Room?.RoomName</td>
+                <td>@booking.Date.ToShortDateString()</td>
+                <td>@booking.Time</td>
+
+                <td colspan="2">
+                    <form asp-action="UpdateStatus" method="post" class="d-flex gap-2">
+                        @Html.AntiForgeryToken()
+
+                        <input type="hidden" name="bookingId" value="@booking.BookingID" />
+
+                        <select name="status" class="form-control">
+                            <option value="Pending" selected="@(booking.Status == "Pending")">Pending</option>
+                            <option value="Approved" selected="@(booking.Status == "Approved")">Approved</option>
+                            <option value="Rejected" selected="@(booking.Status == "Rejected")">Rejected</option>
+                        </select>
+
+                        <button type="submit" class="btn btn-primary btn-sm">
+                            Save
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

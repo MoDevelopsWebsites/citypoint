@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "\\\\dom.sandwell.ac.uk\\Student\\HomeOdd\\706695\\GitHub\\PetPals\\citypoint\\CityPointHire\\CityPointHire.csproj": {}
+    "\\\\dom.sandwell.ac.uk\\Student\\HomeOdd\\706695\\Mock Exam\\citypoint\\citypoint\\CityPointHire\\CityPointHire.csproj": {}
   },
   "projects": {
-    "\\\\dom.sandwell.ac.uk\\Student\\HomeOdd\\706695\\GitHub\\PetPals\\citypoint\\CityPointHire\\CityPointHire.csproj": {
+    "\\\\dom.sandwell.ac.uk\\Student\\HomeOdd\\706695\\Mock Exam\\citypoint\\citypoint\\CityPointHire\\CityPointHire.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "\\\\dom.sandwell.ac.uk\\Student\\HomeOdd\\706695\\GitHub\\PetPals\\citypoint\\CityPointHire\\CityPointHire.csproj",
+        "projectUniqueName": "\\\\dom.sandwell.ac.uk\\Student\\HomeOdd\\706695\\Mock Exam\\citypoint\\citypoint\\CityPointHire\\CityPointHire.csproj",
         "projectName": "CityPointHire",
-        "projectPath": "\\\\dom.sandwell.ac.uk\\Student\\HomeOdd\\706695\\GitHub\\PetPals\\citypoint\\CityPointHire\\CityPointHire.csproj",
+        "projectPath": "\\\\dom.sandwell.ac.uk\\Student\\HomeOdd\\706695\\Mock Exam\\citypoint\\citypoint\\CityPointHire\\CityPointHire.csproj",
         "packagesPath": "C:\\Users\\706695\\.nuget\\packages\\",
-        "outputPath": "\\\\dom.sandwell.ac.uk\\Student\\HomeOdd\\706695\\GitHub\\PetPals\\citypoint\\CityPointHire\\obj\\",
+        "outputPath": "\\\\dom.sandwell.ac.uk\\Student\\HomeOdd\\706695\\Mock Exam\\citypoint\\citypoint\\CityPointHire\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -42,7 +42,7 @@
         "restoreAuditProperties": {
           "enableAudit": "true",
           "auditLevel": "low",
-          "auditMode": "direct"
+          "auditMode": "all"
         },
         "SdkAnalysisLevel": "9.0.100"
       },
@@ -102,7 +102,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files (x86)\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files (x86)\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

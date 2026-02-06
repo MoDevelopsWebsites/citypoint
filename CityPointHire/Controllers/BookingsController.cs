@@ -4,7 +4,6 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CityPointHire.Data;
 using CityPointHire.Models;
@@ -21,62 +20,100 @@ namespace CityPointHire.Controllers
             _context = context;
         }
 
-        // =======================
-        // INDEX
-        // =======================
+        // User view - show all rooms to book
         public async Task<IActionResult> Index()
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            if (User.IsInRole("Staff"))
+            if (User.IsInRole("Staff") || User.IsInRole("Admin"))
             {
-                return View(await _context.Bookings
-                    .Include(b => b.Room)
-                    .Include(b => b.User)
-                    .OrderByDescending(b => b.Date)
-                    .ToListAsync());
+                return RedirectToAction(nameof(AdminIndex));
             }
 
-            return View(await _context.Bookings
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            // Get all rooms
+            var allRooms = await _context.Rooms.ToListAsync();
+
+            // Get rooms the user already booked
+            var myBookings = await _context.Bookings
                 .Include(b => b.Room)
                 .Where(b => b.UserID == userId)
                 .OrderByDescending(b => b.Date)
-                .ToListAsync());
+                .ToListAsync();
+
+            // Optionally, remove booked rooms from available list
+            var availableRooms = allRooms
+                .Where(r => !myBookings.Any(b => b.RoomID == r.RoomID))
+                .ToList();
+
+            return View(new Tuple<IEnumerable<Room>, IEnumerable<Booking>>(availableRooms, myBookings));
+        }
+
+
+        // Admin/Staff view - show all bookings
+        [Authorize(Roles = "Admin,Staff")]
+        public async Task<IActionResult> AdminIndex()
+        {
+            var bookings = await _context.Bookings
+                .Include(b => b.Room)
+                .Include(b => b.User)
+                .OrderByDescending(b => b.Date)
+                .ToListAsync();
+
+            return View(bookings);
+        }
+
+        // Update status
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,Staff")]
+        public async Task<IActionResult> UpdateStatus(int bookingId, string status)
+        {
+            var booking = await _context.Bookings.FindAsync(bookingId);
+            if (booking == null) return NotFound();
+
+            booking.Status = status;
+            _context.Update(booking);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(AdminIndex));
         }
 
         // =======================
-        // DETAILS
+        // Create Booking (user only)
         // =======================
-        public async Task<IActionResult> Details(int? id)
+        // GET: Bookings/Create?roomId=1
+        public async Task<IActionResult> Create(int roomId)
         {
-            if (id == null) return NotFound();
+            var room = await _context.Rooms.FindAsync(roomId);
+            if (room == null) return NotFound();
 
-            var booking = await _context.Bookings
-                .Include(b => b.Room)
-                .Include(b => b.User)
-                .FirstOrDefaultAsync(m => m.BookingID == id);
-
-            if (booking == null) return NotFound();
-
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (!User.IsInRole("Staff") && booking.UserID != userId)
-                return Forbid();
+            var booking = new Booking
+            {
+                RoomID = room.RoomID,
+                Room = room
+            };
 
             return View(booking);
         }
-
-        // =======================
-        // CREATE (GET)
-        // =======================
-        public IActionResult Create()
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CancelBooking(int bookingId)
         {
-            ViewData["RoomID"] = new SelectList(_context.Rooms, "RoomID", "RoomName");
-            return View();
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var booking = await _context.Bookings
+                .FirstOrDefaultAsync(b => b.BookingID == bookingId && b.UserID == userId);
+
+            if (booking == null)
+            {
+                return NotFound();
+            }
+
+            _context.Bookings.Remove(booking);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
         }
 
-        // =======================
-        // CREATE (POST)
-        // =======================
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("RoomID,Date,Time")] Booking booking)
@@ -84,25 +121,17 @@ namespace CityPointHire.Controllers
             booking.UserID = User.FindFirstValue(ClaimTypes.NameIdentifier);
             booking.Status = "Pending";
 
-            // ❌ Cannot book in the past
-            var selectedDateTime = booking.Date.Date
-                .Add(TimeSpan.Parse(booking.Time));
-
+            var selectedDateTime = booking.Date.Date.Add(TimeSpan.Parse(booking.Time));
             if (selectedDateTime < DateTime.Now)
-            {
                 ModelState.AddModelError("", "You cannot book a room in the past.");
-            }
 
-            // ❌ Prevent duplicate bookings
             bool duplicateExists = await _context.Bookings.AnyAsync(b =>
                 b.RoomID == booking.RoomID &&
                 b.Date == booking.Date &&
                 b.Time == booking.Time);
 
             if (duplicateExists)
-            {
                 ModelState.AddModelError("", "This room is already booked for the selected date and time.");
-            }
 
             if (ModelState.IsValid)
             {
@@ -111,138 +140,12 @@ namespace CityPointHire.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            ViewData["RoomID"] = new SelectList(_context.Rooms, "RoomID", "RoomName", booking.RoomID);
-            return View(booking);
-        }
 
-        // =======================
-        // EDIT (GET)
-        // =======================
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null) return NotFound();
 
-            var booking = await _context.Bookings.FindAsync(id);
-            if (booking == null) return NotFound();
-
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (!User.IsInRole("Staff") && booking.UserID != userId)
-                return Forbid();
-
-            ViewData["RoomID"] = new SelectList(_context.Rooms, "RoomID", "RoomName", booking.RoomID);
-            return View(booking);
-        }
-
-        // =======================
-        // EDIT (POST)
-        // =======================
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("BookingID,RoomID,Date,Time")] Booking booking)
-        {
-            if (id != booking.BookingID) return NotFound();
-
-            var existingBooking = await _context.Bookings.AsNoTracking()
-                .FirstOrDefaultAsync(b => b.BookingID == id);
-
-            if (existingBooking == null) return NotFound();
-
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (!User.IsInRole("Staff") && existingBooking.UserID != userId)
-                return Forbid();
-
-            booking.UserID = existingBooking.UserID;
-            booking.Status = existingBooking.Status;
-
-            // ❌ Cannot edit into the past
-            var selectedDateTime = booking.Date.Date
-                .Add(TimeSpan.Parse(booking.Time));
-
-            if (selectedDateTime < DateTime.Now)
-            {
-                ModelState.AddModelError("", "You cannot book a room in the past.");
-            }
-
-            // ❌ Prevent duplicate bookings (excluding self)
-            bool duplicateExists = await _context.Bookings.AnyAsync(b =>
-                b.BookingID != booking.BookingID &&
-                b.RoomID == booking.RoomID &&
-                b.Date == booking.Date &&
-                b.Time == booking.Time);
-
-            if (duplicateExists)
-            {
-                ModelState.AddModelError("", "This room is already booked for the selected date and time.");
-            }
-
-            if (ModelState.IsValid)
-            {
-                _context.Update(booking);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-
-            ViewData["RoomID"] = new SelectList(_context.Rooms, "RoomID", "RoomName", booking.RoomID);
-            return View(booking);
-        }
-
-        // =======================
-        // DELETE (STAFF ONLY)
-        // =======================
-        [Authorize(Roles = "Staff")]
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null) return NotFound();
-
-            var booking = await _context.Bookings
-                .Include(b => b.Room)
-                .Include(b => b.User)
-                .FirstOrDefaultAsync(m => m.BookingID == id);
-
-            if (booking == null) return NotFound();
+            // Re-fetch room to redisplay form
+            booking.Room = await _context.Rooms.FindAsync(booking.RoomID);
 
             return View(booking);
-        }
-
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Staff")]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var booking = await _context.Bookings.FindAsync(id);
-            if (booking != null)
-            {
-                _context.Bookings.Remove(booking);
-                await _context.SaveChangesAsync();
-            }
-            return RedirectToAction(nameof(Index));
-        }
-
-        // =======================
-        // STAFF ACTIONS
-        // =======================
-        [Authorize(Roles = "Staff")]
-        public async Task<IActionResult> Approve(int id)
-        {
-            var booking = await _context.Bookings.FindAsync(id);
-            if (booking == null) return NotFound();
-
-            booking.Status = "Approved";
-            _context.Update(booking);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
-        [Authorize(Roles = "Staff")]
-        public async Task<IActionResult> Deny(int id)
-        {
-            var booking = await _context.Bookings.FindAsync(id);
-            if (booking == null) return NotFound();
-
-            booking.Status = "Denied";
-            _context.Update(booking);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
         }
     }
 }

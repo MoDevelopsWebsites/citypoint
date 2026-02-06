@@ -47,11 +47,55 @@
         @RenderBody()
     </main>
 
-    <footer class="site-footer">
-        <div class="container">
-            &copy; 2026 - CityPointHire - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <!-- Footer -->
+    <footer style="background: #111; color: #ccc; padding: 4rem 2rem; font-family: 'Inter', sans-serif; margin-top: 4rem;">
+        <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 2rem; justify-content: space-between;">
+            <!-- About -->
+            <div style="flex: 1 1 250px;">
+                <h3 style="color: #fff; margin-bottom: 1rem;">CityPoint Hire</h3>
+                <p style="line-height: 1.6; font-size: 0.875rem;">
+                    Premium meeting rooms, event spaces, and training venues equipped with modern facilities for professionals, teams, and events of all sizes.
+                </p>
+            </div>
+
+            <!-- Quick Links -->
+            <div style="flex: 1 1 150px;">
+                <h4 style="color: #fff; margin-bottom: 1rem;">Quick Links</h4>
+                <ul style="list-style: none; padding: 0; font-size: 0.875rem; line-height: 1.8;">
+                    <li><a href="#home" style="color: #ccc; text-decoration: none; transition: color 0.3s;">Home</a></li>
+                    <li><a href="#rooms" style="color: #ccc; text-decoration: none; transition: color 0.3s;">Rooms</a></li>
+                    <li><a href="#equipment" style="color: #ccc; text-decoration: none; transition: color 0.3s;">Equipment</a></li>
+                    <li><a href="#bookings" style="color: #ccc; text-decoration: none; transition: color 0.3s;">Bookings</a></li>
+                </ul>
+            </div>
+
+            <!-- Contact Info -->
+            <div style="flex: 1 1 250px;">
+                <h4 style="color: #fff; margin-bottom: 1rem;">Contact</h4>
+                <p style="font-size: 0.875rem; line-height: 1.6;">
+                    123 CityPoint Avenue<br>
+                    London, UK<br>
+                    Email: <a href="mailto:info@citypointhire.com" style="color: #ccc;">info@citypointhire.com</a><br>
+                    Phone: <a href="tel:+441234567890" style="color: #ccc;">+44 123 456 7890</a>
+                </p>
+            </div>
+
+            <!-- Social Links -->
+            <div style="flex: 1 1 150px;">
+                <h4 style="color: #fff; margin-bottom: 1rem;">Follow Us</h4>
+                <div style="display: flex; gap: 1rem;">
+                    <a href="#" style="color: #ccc; transition: color 0.3s;"><svg width="20" height="20" fill="currentColor"><path d="M20 0v20H0V0h20z" fill="none" /><path d="M17.5 0h-15A2.5 2.5 0 0 0 0 2.5v15A2.5 2.5 0 0 0 2.5 20h15a2.5 2.5 0 0 0 2.5-2.5v-15A2.5 2.5 0 0 0 17.5 0zm-8 15H6v-6h3.5v6zm0-7.5H6V6h3.5v1.5zm5.5 7.5h-3.5v-3c0-.828.672-1.5 1.5-1.5h.5v-1h-1v-1h1v-1h-1v-1h1V6h-1v1h-1v1h1v1h-1v1h1c.828 0 1.5.672 1.5 1.5v3z" /></svg></a>
+                    <a href="#" style="color: #ccc; transition: color 0.3s;"><svg width="20" height="20" fill="currentColor"><path d="M20 0v20H0V0h20z" fill="none" /><path d="M10 0C4.485 0 0 4.486 0 10s4.485 10 10 10 10-4.486 10-10S15.515 0 10 0zm0 18.182A8.182 8.182 0 1 1 18.182 10 8.192 8.192 0 0 1 10 18.182zm3.637-10.09l-3.091 3.088-1.646-1.642a.91.91 0 0 0-1.286 1.286l2.286 2.282a.91.91 0 0 0 1.286 0l3.737-3.733a.91.91 0 0 0-1.286-1.286z" /></svg></a>
+                    <a href="#" style="color: #ccc; transition: color 0.3s;"><svg width="20" height="20" fill="currentColor"><path d="M20 0v20H0V0h20z" fill="none" /><path d="M10 0C4.485 0 0 4.486 0 10s4.485 10 10 10 10-4.486 10-10S15.515 0 10 0zm-1 15v-5H7v-2h2V7h2v1h1v2h-1v5h-2z" /></svg></a>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 3rem; font-size: 0.75rem; color: #666;">
+            &copy; 2026 CityPoint Hire. All rights reserved.
         </div>
     </footer>
+
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
