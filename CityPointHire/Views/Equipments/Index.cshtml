@@ -1,41 +1,124 @@
 ﻿@model IEnumerable<CityPointHire.Models.Equipment>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Equipment";
 }
 
-<h1>Index</h1>
+<style>
+    .equipment-hero {
+        background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 50%, #3d7ab5 100%);
+        padding: 4rem 2rem;
+        border-radius: 1.5rem;
+        margin-bottom: 3rem;
+        color: white;
+        text-align: center;
+    }
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.EquipmentName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Availability)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.EquipmentName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Availability)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.EquipmentID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.EquipmentID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.EquipmentID">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    .equipment-card {
+        border: none;
+        border-radius: 1rem;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease;
+        height: 100%;
+    }
+
+        .equipment-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+        }
+
+    .equipment-icon {
+        height: 120px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3rem;
+        background: #f8fafc;
+        border-top-left-radius: 1rem;
+        border-top-right-radius: 1rem;
+    }
+
+    .status-badge {
+        padding: 0.4rem 0.9rem;
+        border-radius: 2rem;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+
+    .status-available {
+        background: #d4edda;
+        color: #155724;
+    }
+
+    .status-unavailable {
+        background: #f8d7da;
+        color: #721c24;
+    }
+
+    .admin-actions a {
+        font-size: 0.85rem;
+        margin-right: 10px;
+    }
+</style>
+
+<div class="container py-5">
+
+    <div class="equipment-hero">
+        <h1 class="display-5">🛠 Equipment & Resources</h1>
+        <p>Browse available equipment for meetings, events and training sessions.</p>
+
+        @if (User.IsInRole("Admin"))
+        {
+            <a asp-action="Create" class="btn btn-light mt-3">+ Add Equipment</a>
+        }
+    </div>
+
+    @if (Model.Any())
+    {
+        <div class="row g-4">
+            @foreach (var item in Model)
+            {
+                <div class="col-sm-6 col-lg-4">
+                    <div class="card equipment-card">
+
+                        <div class="equipment-icon">
+                            🔧
+                        </div>
+
+                        <div class="card-body text-center">
+                            <h5 class="fw-bold">@item.EquipmentName</h5>
+
+                            <div class="my-3">
+                                @if (item.Availability)
+                                {
+                                    <span class="status-badge status-available">Available</span>
+                                }
+                                else
+                                {
+                                    <span class="status-badge status-unavailable">Unavailable</span>
+                                }
+                            </div>
+
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <div class="admin-actions mt-3">
+                                    <a asp-action="Edit" asp-route-id="@item.EquipmentID" class="text-primary">Edit</a>
+                                    <a asp-action="Delete" asp-route-id="@item.EquipmentID" class="text-danger">Delete</a>
+                                </div>
+                            }
+                        </div>
+
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="text-center mt-5">
+            <h4>No equipment added yet.</h4>
+        </div>
+    }
+
+</div>

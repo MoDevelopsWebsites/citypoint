@@ -4,6 +4,7 @@ using CityPointHire.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CityPointHire.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260211125201_initial")]
+    partial class initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -125,142 +128,6 @@ namespace CityPointHire.Data.Migrations
                             Facilities = "Stage, Ambient Lighting, Catering Ready",
                             Price = 120.00m,
                             RoomName = "Grand Event Hall"
-                        },
-                        new
-                        {
-                            RoomID = 4,
-                            Capacity = 15,
-                            Facilities = "Interactive Screens, Flexible Seating",
-                            Price = 55.00m,
-                            RoomName = "Innovation Lab"
-                        },
-                        new
-                        {
-                            RoomID = 5,
-                            Capacity = 20,
-                            Facilities = "Smart Board, Natural Lighting",
-                            Price = 50.00m,
-                            RoomName = "Creative Studio"
-                        },
-                        new
-                        {
-                            RoomID = 6,
-                            Capacity = 12,
-                            Facilities = "HD Display, Conference Phone",
-                            Price = 40.00m,
-                            RoomName = "Conference Room A"
-                        },
-                        new
-                        {
-                            RoomID = 7,
-                            Capacity = 10,
-                            Facilities = "Whiteboard, HDMI Setup",
-                            Price = 35.00m,
-                            RoomName = "Conference Room B"
-                        },
-                        new
-                        {
-                            RoomID = 8,
-                            Capacity = 25,
-                            Facilities = "Projector, Flip Charts",
-                            Price = 60.00m,
-                            RoomName = "Workshop Room 1"
-                        },
-                        new
-                        {
-                            RoomID = 9,
-                            Capacity = 30,
-                            Facilities = "Dual Screens, Sound System",
-                            Price = 70.00m,
-                            RoomName = "Workshop Room 2"
-                        },
-                        new
-                        {
-                            RoomID = 10,
-                            Capacity = 60,
-                            Facilities = "Tiered Seating, AV System",
-                            Price = 90.00m,
-                            RoomName = "Seminar Hall"
-                        },
-                        new
-                        {
-                            RoomID = 11,
-                            Capacity = 4,
-                            Facilities = "Private Space, Desk Setup",
-                            Price = 20.00m,
-                            RoomName = "Interview Room 1"
-                        },
-                        new
-                        {
-                            RoomID = 12,
-                            Capacity = 4,
-                            Facilities = "Quiet Zone, Office Desk",
-                            Price = 20.00m,
-                            RoomName = "Interview Room 2"
-                        },
-                        new
-                        {
-                            RoomID = 13,
-                            Capacity = 18,
-                            Facilities = "Modular Tables, Smart TV",
-                            Price = 55.00m,
-                            RoomName = "Team Collaboration Hub"
-                        },
-                        new
-                        {
-                            RoomID = 14,
-                            Capacity = 14,
-                            Facilities = "Wall Whiteboards, Screen Casting",
-                            Price = 48.00m,
-                            RoomName = "Strategy Room"
-                        },
-                        new
-                        {
-                            RoomID = 15,
-                            Capacity = 35,
-                            Facilities = "Comfort Seating, Refreshment Area",
-                            Price = 75.00m,
-                            RoomName = "Networking Lounge"
-                        },
-                        new
-                        {
-                            RoomID = 16,
-                            Capacity = 150,
-                            Facilities = "Stage, Full AV, Lighting Rig",
-                            Price = 150.00m,
-                            RoomName = "Auditorium"
-                        },
-                        new
-                        {
-                            RoomID = 17,
-                            Capacity = 12,
-                            Facilities = "Recording Equipment, Editing PC",
-                            Price = 65.00m,
-                            RoomName = "Digital Media Room"
-                        },
-                        new
-                        {
-                            RoomID = 18,
-                            Capacity = 6,
-                            Facilities = "Premium Seating, Smart Display",
-                            Price = 50.00m,
-                            RoomName = "Executive Meeting Room"
-                        },
-                        new
-                        {
-                            RoomID = 19,
-                            Capacity = 45,
-                            Facilities = "Open Plan, Projector",
-                            Price = 80.00m,
-                            RoomName = "Community Space"
-                        },
-                        new
-                        {
-                            RoomID = 20,
-                            Capacity = 3,
-                            Facilities = "Confidential Setup, Desk & Chairs",
-                            Price = 25.00m,
-                            RoomName = "Private Consultation Room"
                         });
                 });
 
